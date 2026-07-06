@@ -1,7 +1,7 @@
 let lang = "en";
 const OFFER_URL = "https://unlockplay.online/cl/i/4ordr1";
 
-/* TEXTS - تم تحديث القاموس ليشمل أزرار التواصل الاجتماعي */
+/* TEXTS */
 const t = {
   en: {
     title: "AI Store",
@@ -53,13 +53,12 @@ const tools = [
   { name: "Pika", desc: { en: "AI-powered video creation platform", ar: "منصة ممتازة لصناعة وتوليد الفيديو بالذكاء الاصطناعي" } }
 ];
 
-/* CHNAGE & INITIALIZE LANGUAGE */
+/* CHANGE & INITIALIZE LANGUAGE */
 function changeLanguage() {
   const selectElement = document.getElementById("langSelect");
   lang = selectElement ? selectElement.value : "en";
   const cur = t[lang] || t["en"];
 
-  // تحديث النصوص الثابتة
   document.getElementById("title").innerText = cur.title;
   document.getElementById("subtitle").innerText = cur.subtitle;
   document.getElementById("searchBox").placeholder = cur.search;
@@ -72,7 +71,6 @@ function changeLanguage() {
   document.querySelector(".yes").innerText = cur.continue;
   document.querySelector(".no").innerText = cur.cancel;
 
-  // قلب الاتجاه للعربية
   if (lang === "ar") {
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
@@ -81,7 +79,6 @@ function changeLanguage() {
     document.documentElement.lang = lang;
   }
 
-  // تحديث حالة زر الدخول/الترحيب العلوي بناءً على اللغة المحددة
   updateAuthButtonUI();
 
   const searchQuery = document.getElementById("searchBox").value;
@@ -97,37 +94,38 @@ function updateAuthButtonUI() {
   const cur = t[lang] || t["en"];
 
   if (isLogged === "true") {
-    // لو مسجل دخول يظهر اسمه أو الخدمة المختار ويتحول لزر تسجيل خروج عند الضغط
     authText.innerText = `${cur.welcome}, ${userProvider} ✓`;
-    authBtn.style.background = "#10b981"; // يتحول للأخضر دلالة على النجاح
+    authBtn.style.background = "#10b981"; 
     authBtn.onclick = handleLogout;
   } else {
     authText.innerText = cur.login;
-    authBtn.style.background = "#2563eb"; // يرجع للون الأزرق العادي
+    authBtn.style.background = "#2563eb"; 
     authBtn.onclick = openAuth;
   }
 }
 
-/* دالة تسجيل الخروج في حال أراد المستخدم تبديل الحساب */
+/* دالة تسجيل الخروج */
 function handleLogout() {
   localStorage.removeItem("ai_store_logged");
   localStorage.removeItem("ai_store_provider");
   updateAuthButtonUI();
 }
 
-/* دالة تسجيل الدخول عبر شبكات التواصل الاجتماعي والتحويل للعرض */
+/* دالة تسجيل الدخول عبر شبكات التواصل الاجتماعي - تم إيقاف التحويل مؤقتاً */
 function socialLogin(provider) {
   const isRememberMeChecked = document.getElementById("rememberMe").checked;
   
   if (isRememberMeChecked) {
-    // حفظ الجلسة في المتصفح ليدخل تلقائياً المرة القادمة
     localStorage.setItem("ai_store_logged", "true");
     localStorage.setItem("ai_store_provider", provider);
   }
 
-  // إغلاق المودال والتحويل الفوري في نفس التبويب لرابط العرض الخاص بك
   closeAuth();
-  window.location.href = OFFER_URL;
+  updateAuthButtonUI(); 
+
+  alert(lang === "ar" ? `تمت محاكاة الدخول عبر ${provider} بنجاح! (التحويل معطل للتعديل)` : `Simulated login via ${provider} successful! (Redirect disabled for editing)`);
+
+  // window.location.href = OFFER_URL; // ❌ معطلة مؤقتاً للتطوير، سنعيدها لاحقاً بطلبك
 }
 
 /* الدالة الافتراضية للزر الأخضر العادي */
