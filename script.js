@@ -1,33 +1,34 @@
-let theme = "dark";
-let category = "all";
+let lang = "en";
+let currentFilter = "all";
 
 /* DATA */
 let tools = [
-  { id: 1, name: "ChatGPT", type: "writing", trending: true },
-  { id: 2, name: "Midjourney", type: "image", trending: true },
-  { id: 3, name: "Pika", type: "video", trending: true },
-  { id: 4, name: "Notion AI", type: "writing", trending: false }
+  { id: 1, name: "ChatGPT", type: "writing", rating: 5, trending: true },
+  { id: 2, name: "Midjourney", type: "image", rating: 5, trending: true },
+  { id: 3, name: "Pika", type: "video", rating: 4, trending: true },
+  { id: 4, name: "Notion AI", type: "writing", rating: 4, trending: false }
 ];
 
-/* FAVORITES */
+/* FAVORITES (LOCAL STORAGE) */
 let favorites = JSON.parse(localStorage.getItem("fav")) || [];
 
-/* INIT THEME */
-document.body.classList.add("dark");
+/* LANGUAGE */
+function changeLanguage() {
+  lang = document.getElementById("langSelect").value;
+}
 
-/* TOGGLE THEME */
-function toggleTheme() {
-  if (theme === "dark") {
-    theme = "light";
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-    document.getElementById("themeBtn").innerText = "☀️";
-  } else {
-    theme = "dark";
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    document.getElementById("themeBtn").innerText = "🌙";
-  }
+/* AUTH */
+function openAuth() {
+  document.getElementById("authModal").style.display = "flex";
+}
+
+function closeAuth() {
+  document.getElementById("authModal").style.display = "none";
+}
+
+function fakeLogin() {
+  closeAuth();
+  alert(lang === "ar" ? "تم تسجيل الدخول 🎉" : "Logged in 🎉");
 }
 
 /* FAVORITE */
@@ -41,9 +42,9 @@ function toggleFav(id) {
   renderTools();
 }
 
-/* CATEGORY */
-function filterCategory(c) {
-  category = c;
+/* FILTER */
+function filterCategory(type) {
+  currentFilter = type;
   renderTools();
 }
 
@@ -55,20 +56,19 @@ function searchTools() {
 /* RENDER */
 function renderTools() {
   const box = document.getElementById("toolsContainer");
-  const search = document.getElementById("searchBox").value?.toLowerCase() || "";
+  const search = document.getElementById("searchBox").value.toLowerCase();
 
   box.innerHTML = "";
 
   let filtered = tools.filter(t => {
-
-    let matchCat =
-      category === "all" ||
-      (category === "trending" && t.trending) ||
-      t.type === category;
+    let matchFilter =
+      currentFilter === "all" ||
+      (currentFilter === "trending" && t.trending) ||
+      t.type === currentFilter;
 
     let matchSearch = t.name.toLowerCase().includes(search);
 
-    return matchCat && matchSearch;
+    return matchFilter && matchSearch;
   });
 
   filtered.forEach(t => {
@@ -81,19 +81,15 @@ function renderTools() {
         </div>
 
         <h3>${t.name}</h3>
-        <p>${t.type}</p>
+
+        <div class="small">${t.type}</div>
+
+        <div class="stars">
+          ${"⭐".repeat(t.rating)}
+        </div>
       </div>
     `;
   });
-}
-
-/* AUTH */
-function openAuth() {
-  document.getElementById("authModal").style.display = "flex";
-}
-
-function closeAuth() {
-  document.getElementById("authModal").style.display = "none";
 }
 
 /* INIT */
