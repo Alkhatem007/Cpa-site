@@ -1,10 +1,11 @@
+/* THEME */
 body {
   margin: 0;
   font-family: Arial;
   transition: 0.3s;
 }
 
-/* THEME */
+/* DARK MODE DEFAULT */
 body.dark {
   background: #0f172a;
   color: white;
@@ -15,27 +16,64 @@ body.light {
   color: black;
 }
 
-/* BACKGROUND */
-.bg {
+/* BACKGROUND ANIMATION */
+.bg-animation {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top, #1e293b, #0f172a);
   z-index: -1;
+  background: linear-gradient(120deg, #1e293b, #0f172a, #1e40af);
+  background-size: 400% 400%;
+  animation: moveBG 10s infinite;
 }
 
-/* TOP */
+@keyframes moveBG {
+  0% {background-position:0% 50%}
+  50% {background-position:100% 50%}
+  100% {background-position:0% 50%}
+}
+
+/* TOP BAR */
 .top-bar {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   padding: 10px;
 }
 
+/* BUTTONS */
+button, select {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 15px;
+}
+
+/* SEARCH */
 #searchBox {
-  flex: 1;
+  width: 85%;
   padding: 10px;
   border-radius: 10px;
   border: none;
+}
+
+/* CATEGORIES */
+.categories {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.categories button {
+  background: #1f2937;
+  color: white;
+  cursor: pointer;
 }
 
 /* GRID */
@@ -49,9 +87,10 @@ body.light {
 /* CARD */
 .card {
   background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
   padding: 12px;
   border-radius: 12px;
-  cursor: pointer;
+  position: relative;
   transition: 0.2s;
 }
 
@@ -59,14 +98,11 @@ body.light {
   transform: scale(1.03);
 }
 
-/* TOOL PAGE */
-.tool-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0b1220;
-  display: none;
-  padding: 20px;
+/* FAVORITE */
+.heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  font-size: 18px;
 }
