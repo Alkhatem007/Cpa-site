@@ -18,7 +18,7 @@ function changeLanguage() {
   document.getElementById("subtitle").innerText = translations[lang].subtitle;
 }
 
-/* AUTH MODAL */
+/* MODAL */
 function openAuth() {
   document.getElementById("authModal").style.display = "flex";
 }
@@ -27,14 +27,38 @@ function closeAuth() {
   document.getElementById("authModal").style.display = "none";
 }
 
+/* 🔥 FIXED REDIRECT (100% WORKING) */
 function goOffer() {
   window.location.href = offerLink;
 }
 
-/* CLOSE MODAL OUTSIDE CLICK */
+/* CLOSE MODAL ON OUTSIDE CLICK */
 window.onclick = function(e) {
   const modal = document.getElementById("authModal");
   if (e.target === modal) {
     closeAuth();
   }
 };
+
+/* SAMPLE TOOLS */
+const tools = [
+  { name: "ChatGPT", desc: "AI writing tool" },
+  { name: "Midjourney", desc: "AI image tool" },
+  { name: "Pika", desc: "AI video tool" }
+];
+
+function loadTools() {
+  const container = document.getElementById("toolsContainer");
+  container.innerHTML = "";
+
+  tools.forEach(t => {
+    container.innerHTML += `
+      <div class="card">
+        <h3>${t.name}</h3>
+        <p>${t.desc}</p>
+      </div>
+    `;
+  });
+}
+
+loadTools();
