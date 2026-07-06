@@ -5,35 +5,61 @@ body {
   color: white;
 }
 
-.header {
-  text-align: center;
-  padding: 20px;
-  background: #111827;
-}
-
-#searchBox {
-  width: 80%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-}
-
-.categories {
+/* top bar */
+.top-bar {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px 15px;
 }
 
-.categories button {
+#langBtn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth button {
+  margin-left: 5px;
   padding: 8px 12px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 
+/* header */
+.header {
+  text-align: center;
+  padding: 20px;
+}
+
+#searchBox {
+  width: 85%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* categories */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.categories button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -47,12 +73,7 @@ body {
   border-radius: 12px;
 }
 
-.card h3 {
-  margin: 0;
-}
-
 .card a {
-  display: inline-block;
-  margin-top: 10px;
   color: #38bdf8;
+  text-decoration: none;
 }
