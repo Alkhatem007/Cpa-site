@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>🤖 AI Store</h1>
+    <p>Find the best AI tools in one place</p>
+    
+    <input type="text" id="searchBox" placeholder="Search AI tools..." />
+  </header>
+
+  <!-- Categories -->
+  <div class="categories">
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('image')">Images</button>
+    <button onclick="filterCategory('video')">Video</button>
+    <button onclick="filterCategory('writing')">Writing</button>
+    <button onclick="filterCategory('study')">Study</button>
+  </div>
+
+  <!-- Tools Grid -->
+  <div id="toolsContainer" class="grid"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
