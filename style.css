@@ -16,6 +16,16 @@ body {
 select {
   padding: 6px;
   border-radius: 6px;
+  border: none;
+}
+
+.auth-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
 }
 
 /* HEADER */
@@ -29,6 +39,7 @@ select {
   padding: 10px;
   border-radius: 10px;
   border: none;
+  margin-top: 10px;
 }
 
 /* GRID */
