@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI Store</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Store</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="dark">
 
-<div class="topbar">
+<div class="bg"></div>
 
+<!-- TOP BAR -->
+<div class="top-bar">
   <button onclick="toggleTheme()" id="themeBtn">🌙</button>
-
-  <select onchange="changeCategory(this.value)">
-    <option value="all">All</option>
-    <option value="writing">Writing</option>
-    <option value="image">Image</option>
-    <option value="video">Video</option>
-  </select>
-
-  <input id="search" placeholder="Search..." oninput="render()" />
-
+  <input id="searchBox" placeholder="Search AI tools..." oninput="renderTools()" />
 </div>
 
-<h1 class="title">AI Store</h1>
+<!-- HEADER -->
+<header class="header">
+  <h1>AI Store</h1>
+  <p>Discover the best AI tools</p>
+</header>
 
-<div id="grid"></div>
+<!-- TOOLS -->
+<div id="toolsContainer" class="grid"></div>
 
 <!-- TOOL PAGE -->
-<div id="page" class="page">
-  <button onclick="closePage()">⬅ Back</button>
-  <h2 id="pName"></h2>
-  <p id="pDesc"></p>
-  <a id="pLink" target="_blank">Open</a>
+<div id="toolPage" class="tool-page">
+  <button onclick="closeTool()">⬅ Back</button>
+  <h2 id="toolName"></h2>
+  <p id="toolDesc"></p>
+  <a id="toolLink" target="_blank">Open Tool</a>
 </div>
 
 <script src="script.js"></script>
