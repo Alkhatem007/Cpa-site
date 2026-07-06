@@ -8,52 +8,59 @@
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <div class="top-bar">
+<!-- TOP BAR -->
+<div class="top-bar">
 
-    <select id="langSelect" onchange="changeLanguage()">
-      <option value="en">English</option>
-      <option value="ar">العربية</option>
-      <option value="fr">Français</option>
-      <option value="es">Español</option>
-      <option value="de">Deutsch</option>
-      <option value="pt">Português</option>
-      <option value="hi">Hindi</option>
-    </select>
+  <select id="langSelect" onchange="changeLanguage()">
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
+    <option value="de">Deutsch</option>
+    <option value="pt">Português</option>
+    <option value="hi">Hindi</option>
+  </select>
 
-    <button class="auth-btn" onclick="openAuth()">Login / Sign Up</button>
+  <button onclick="openAuth()" class="auth-btn">
+    <span id="authText">Login / Sign Up</span>
+  </button>
 
-  </div>
+</div>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 id="title">AI Store</h1>
-    <p id="subtitle">Find the best AI tools in one place</p>
+<!-- HEADER -->
+<header class="header">
+  <h1 id="title">AI Store</h1>
+  <p id="subtitle">Find the best AI tools in one place</p>
 
-    <input type="text" id="searchBox" placeholder="Search AI tools..." />
-  </header>
+  <input type="text" id="searchBox" placeholder="Search AI tools..." />
+</header>
 
-  <!-- TOOLS -->
-  <div id="toolsContainer" class="grid"></div>
+<!-- TOOLS -->
+<div id="toolsContainer" class="grid"></div>
 
-  <!-- MODAL -->
-  <div id="authModal" class="modal">
-    <div class="modal-content">
-      <h2>Account Access</h2>
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal">
+  <div class="modal-content">
 
-      <p>
-        To continue using AI Store, you need to complete a quick verification step.
-        This helps us keep the platform free for everyone.
-      </p>
+    <h2 id="modalTitle">Account Access</h2>
 
-      <div class="modal-buttons">
-        <button class="yes" onclick="goOffer()">Continue</button>
-        <button class="no" onclick="closeAuth()">Not Now</button>
-      </div>
+    <p id="modalText">
+      Create your account to unlock personalized AI tools experience.
+    </p>
 
+    <div class="modal-buttons">
+      <button class="yes" onclick="fakeSignup()">
+        Continue
+      </button>
+
+      <button class="no" onclick="closeAuth()">
+        Cancel
+      </button>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
