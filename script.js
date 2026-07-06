@@ -1,59 +1,72 @@
-let category = "all";
-
-const tools = [
-{ id:1,name:"ChatGPT",type:"writing",desc:"AI assistant",link:"https://chat.openai.com"},
-{ id:2,name:"Midjourney",type:"image",desc:"AI images",link:"https://midjourney.com"},
-{ id:3,name:"Pika",type:"video",desc:"AI video",link:"https://pika.art"}
-];
+body {
+  margin: 0;
+  font-family: Arial;
+  transition: 0.3s;
+}
 
 /* THEME */
-function toggleTheme(){
-document.body.classList.toggle("light");
-document.body.classList.toggle("dark");
+body.dark {
+  background: #0f172a;
+  color: white;
 }
 
-/* CATEGORY */
-function changeCategory(v){
-category = v;
-render();
+body.light {
+  background: #f4f4f4;
+  color: black;
 }
 
-/* RENDER */
-function render(){
-let box = document.getElementById("grid");
-let search = document.getElementById("search").value.toLowerCase();
+/* BACKGROUND */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
+  z-index: -1;
+}
 
-box.innerHTML="";
+/* TOP */
+.top-bar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
 
-tools
-.filter(t=>{
-let okCat = category==="all" || t.type===category;
-let okSearch = t.name.toLowerCase().includes(search);
-return okCat && okSearch;
-})
-.forEach(t=>{
-box.innerHTML += `
-<div class="card" onclick="openTool(${t.id})">
-<h3>${t.name}</h3>
-<p>${t.type}</p>
-</div>`;
-});
+#searchBox {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 15px;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
 }
 
 /* TOOL PAGE */
-function openTool(id){
-let t = tools.find(x=>x.id===id);
-
-document.getElementById("pName").innerText = t.name;
-document.getElementById("pDesc").innerText = t.desc;
-document.getElementById("pLink").href = t.link;
-
-document.getElementById("page").style.display="block";
+.tool-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0b1220;
+  display: none;
+  padding: 20px;
 }
-
-function closePage(){
-document.getElementById("page").style.display="none";
-}
-
-/* INIT */
-render();
