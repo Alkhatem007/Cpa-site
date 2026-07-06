@@ -16,12 +16,9 @@
     <option value="ar">العربية</option>
     <option value="fr">Français</option>
     <option value="es">Español</option>
-    <option value="de">Deutsch</option>
-    <option value="pt">Português</option>
-    <option value="hi">Hindi</option>
   </select>
 
-  <button onclick="openAuth()" class="auth-btn">
+  <button class="auth-btn" onclick="openAuth()">
     <span id="authText">Login / Sign Up</span>
   </button>
 
@@ -30,10 +27,19 @@
 <!-- HEADER -->
 <header class="header">
   <h1 id="title">AI Store</h1>
-  <p id="subtitle">Find the best AI tools in one place</p>
+  <p id="subtitle">Find the best AI tools</p>
 
-  <input type="text" id="searchBox" placeholder="Search AI tools..." />
+  <input type="text" id="searchBox" placeholder="Search tools..." oninput="searchTools()" />
 </header>
+
+<!-- FILTERS -->
+<div class="filters">
+  <button onclick="filterCategory('all')">All</button>
+  <button onclick="filterCategory('trending')">🔥 Trending</button>
+  <button onclick="filterCategory('image')">Images</button>
+  <button onclick="filterCategory('video')">Video</button>
+  <button onclick="filterCategory('writing')">Writing</button>
+</div>
 
 <!-- TOOLS -->
 <div id="toolsContainer" class="grid"></div>
@@ -42,20 +48,12 @@
 <div id="authModal" class="modal">
   <div class="modal-content">
 
-    <h2 id="modalTitle">Account Access</h2>
-
-    <p id="modalText">
-      Create your account to unlock personalized AI tools experience.
-    </p>
+    <h2 id="modalTitle">Account</h2>
+    <p id="modalText">Create account to continue</p>
 
     <div class="modal-buttons">
-      <button class="yes" onclick="fakeSignup()">
-        Continue
-      </button>
-
-      <button class="no" onclick="closeAuth()">
-        Cancel
-      </button>
+      <button class="yes" onclick="fakeLogin()">Continue</button>
+      <button class="no" onclick="closeAuth()">Cancel</button>
     </div>
 
   </div>
