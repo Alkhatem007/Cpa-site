@@ -7,31 +7,58 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="dark">
+<body>
 
-<div class="bg"></div>
+<!-- BACKGROUND ANIMATION -->
+<div class="bg-animation"></div>
 
 <!-- TOP BAR -->
 <div class="top-bar">
+
+  <!-- LANGUAGE -->
+  <select id="langSelect" onchange="changeLanguage()">
+    <option value="en">EN</option>
+    <option value="ar">AR</option>
+    <option value="fr">FR</option>
+    <option value="es">ES</option>
+  </select>
+
+  <!-- THEME -->
   <button onclick="toggleTheme()" id="themeBtn">🌙</button>
-  <input id="searchBox" placeholder="Search AI tools..." oninput="renderTools()" />
+
+  <!-- AUTH -->
+  <button class="auth-btn" onclick="openAuth()">Login</button>
+
 </div>
 
 <!-- HEADER -->
 <header class="header">
-  <h1>AI Store</h1>
-  <p>Discover the best AI tools</p>
+  <h1 id="title">AI Store</h1>
+  <p id="subtitle">Find the best AI tools</p>
+
+  <input type="text" id="searchBox" placeholder="Search..." oninput="searchTools()" />
 </header>
+
+<!-- CATEGORIES -->
+<div class="categories">
+  <button onclick="filterCategory('all')">All</button>
+  <button onclick="filterCategory('trending')">🔥 Trending</button>
+  <button onclick="filterCategory('image')">🖼 Image</button>
+  <button onclick="filterCategory('video')">🎬 Video</button>
+  <button onclick="filterCategory('writing')">✍ Writing</button>
+</div>
 
 <!-- TOOLS -->
 <div id="toolsContainer" class="grid"></div>
 
-<!-- TOOL PAGE -->
-<div id="toolPage" class="tool-page">
-  <button onclick="closeTool()">⬅ Back</button>
-  <h2 id="toolName"></h2>
-  <p id="toolDesc"></p>
-  <a id="toolLink" target="_blank">Open Tool</a>
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal">
+  <div class="modal-content">
+    <h2>Login</h2>
+    <p>Demo login (no backend yet)</p>
+
+    <button onclick="closeAuth()">Close</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
