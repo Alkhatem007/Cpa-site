@@ -1,95 +1,76 @@
-let lang = "en";
-let currentFilter = "all";
+let theme = "dark";
 
-/* DATA */
-let tools = [
-  { id: 1, name: "ChatGPT", type: "writing", rating: 5, trending: true },
-  { id: 2, name: "Midjourney", type: "image", rating: 5, trending: true },
-  { id: 3, name: "Pika", type: "video", rating: 4, trending: true },
-  { id: 4, name: "Notion AI", type: "writing", rating: 4, trending: false }
+/* DATABASE (IMPORTANT UPGRADE) */
+const tools = [
+  {
+    id: 1,
+    name: "ChatGPT",
+    type: "Writing AI",
+    desc: "Powerful AI assistant for writing and coding.",
+    link: "https://chat.openai.com"
+  },
+  {
+    id: 2,
+    name: "Midjourney",
+    type: "Image AI",
+    desc: "Generate high quality AI images.",
+    link: "https://www.midjourney.com"
+  },
+  {
+    id: 3,
+    name: "Pika Labs",
+    type: "Video AI",
+    desc: "Create AI videos easily.",
+    link: "https://pika.art"
+  }
 ];
 
-/* FAVORITES (LOCAL STORAGE) */
-let favorites = JSON.parse(localStorage.getItem("fav")) || [];
-
-/* LANGUAGE */
-function changeLanguage() {
-  lang = document.getElementById("langSelect").value;
-}
-
-/* AUTH */
-function openAuth() {
-  document.getElementById("authModal").style.display = "flex";
-}
-
-function closeAuth() {
-  document.getElementById("authModal").style.display = "none";
-}
-
-function fakeLogin() {
-  closeAuth();
-  alert(lang === "ar" ? "تم تسجيل الدخول 🎉" : "Logged in 🎉");
-}
-
-/* FAVORITE */
-function toggleFav(id) {
-  if (favorites.includes(id)) {
-    favorites = favorites.filter(f => f !== id);
+/* THEME */
+function toggleTheme() {
+  if (theme === "dark") {
+    theme = "light";
+    document.body.className = "light";
   } else {
-    favorites.push(id);
+    theme = "dark";
+    document.body.className = "dark";
   }
-  localStorage.setItem("fav", JSON.stringify(favorites));
-  renderTools();
 }
 
-/* FILTER */
-function filterCategory(type) {
-  currentFilter = type;
-  renderTools();
-}
-
-/* SEARCH */
-function searchTools() {
-  renderTools();
-}
-
-/* RENDER */
+/* RENDER TOOLS */
 function renderTools() {
   const box = document.getElementById("toolsContainer");
-  const search = document.getElementById("searchBox").value.toLowerCase();
+  const search = document.getElementById("searchBox").value?.toLowerCase() || "";
 
   box.innerHTML = "";
 
-  let filtered = tools.filter(t => {
-    let matchFilter =
-      currentFilter === "all" ||
-      (currentFilter === "trending" && t.trending) ||
-      t.type === currentFilter;
-
-    let matchSearch = t.name.toLowerCase().includes(search);
-
-    return matchFilter && matchSearch;
-  });
-
-  filtered.forEach(t => {
-    let isFav = favorites.includes(t.id);
-
-    box.innerHTML += `
-      <div class="card">
-        <div class="heart" onclick="toggleFav(${t.id})">
-          ${isFav ? "❤️" : "🤍"}
+  tools
+    .filter(t =>
+      t.name.toLowerCase().includes(search) ||
+      t.type.toLowerCase().includes(search)
+    )
+    .forEach(t => {
+      box.innerHTML += `
+        <div class="card" onclick="openTool(${t.id})">
+          <h3>${t.name}</h3>
+          <p>${t.type}</p>
         </div>
+      `;
+    });
+}
 
-        <h3>${t.name}</h3>
+/* TOOL PAGE */
+function openTool(id) {
+  const tool = tools.find(t => t.id === id);
 
-        <div class="small">${t.type}</div>
+  document.getElementById("toolName").innerText = tool.name;
+  document.getElementById("toolDesc").innerText = tool.desc;
+  document.getElementById("toolLink").href = tool.link;
 
-        <div class="stars">
-          ${"⭐".repeat(t.rating)}
-        </div>
-      </div>
-    `;
-  });
+  document.getElementById("toolPage").style.display = "block";
+}
+
+function closeTool() {
+  document.getElementById("toolPage").style.display = "none";
 }
 
 /* INIT */
