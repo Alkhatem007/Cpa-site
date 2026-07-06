@@ -1,72 +1,100 @@
-body {
-  margin: 0;
-  font-family: Arial;
-  transition: 0.3s;
+let theme = "dark";
+let category = "all";
+
+/* DATA */
+let tools = [
+  { id: 1, name: "ChatGPT", type: "writing", trending: true },
+  { id: 2, name: "Midjourney", type: "image", trending: true },
+  { id: 3, name: "Pika", type: "video", trending: true },
+  { id: 4, name: "Notion AI", type: "writing", trending: false }
+];
+
+/* FAVORITES */
+let favorites = JSON.parse(localStorage.getItem("fav")) || [];
+
+/* INIT THEME */
+document.body.classList.add("dark");
+
+/* TOGGLE THEME */
+function toggleTheme() {
+  if (theme === "dark") {
+    theme = "light";
+    document.body.classList.remove("dark");
+    document.body.classList.add("light");
+    document.getElementById("themeBtn").innerText = "☀️";
+  } else {
+    theme = "dark";
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
+    document.getElementById("themeBtn").innerText = "🌙";
+  }
 }
 
-/* THEME */
-body.dark {
-  background: #0f172a;
-  color: white;
+/* FAVORITE */
+function toggleFav(id) {
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(f => f !== id);
+  } else {
+    favorites.push(id);
+  }
+  localStorage.setItem("fav", JSON.stringify(favorites));
+  renderTools();
 }
 
-body.light {
-  background: #f4f4f4;
-  color: black;
+/* CATEGORY */
+function filterCategory(c) {
+  category = c;
+  renderTools();
 }
 
-/* BACKGROUND */
-.bg {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at top, #1e293b, #0f172a);
-  z-index: -1;
+/* SEARCH */
+function searchTools() {
+  renderTools();
 }
 
-/* TOP */
-.top-bar {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
+/* RENDER */
+function renderTools() {
+  const box = document.getElementById("toolsContainer");
+  const search = document.getElementById("searchBox").value?.toLowerCase() || "";
+
+  box.innerHTML = "";
+
+  let filtered = tools.filter(t => {
+
+    let matchCat =
+      category === "all" ||
+      (category === "trending" && t.trending) ||
+      t.type === category;
+
+    let matchSearch = t.name.toLowerCase().includes(search);
+
+    return matchCat && matchSearch;
+  });
+
+  filtered.forEach(t => {
+    let isFav = favorites.includes(t.id);
+
+    box.innerHTML += `
+      <div class="card">
+        <div class="heart" onclick="toggleFav(${t.id})">
+          ${isFav ? "❤️" : "🤍"}
+        </div>
+
+        <h3>${t.name}</h3>
+        <p>${t.type}</p>
+      </div>
+    `;
+  });
 }
 
-#searchBox {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
+/* AUTH */
+function openAuth() {
+  document.getElementById("authModal").style.display = "flex";
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  padding: 15px;
+function closeAuth() {
+  document.getElementById("authModal").style.display = "none";
 }
 
-/* CARD */
-.card {
-  background: rgba(255,255,255,0.05);
-  padding: 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.03);
-}
-
-/* TOOL PAGE */
-.tool-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0b1220;
-  display: none;
-  padding: 20px;
-}
+/* INIT */
+renderTools();
