@@ -1,6 +1,5 @@
 let lang = "en";
-let currentFilter = "all";
-
+let currentFilter = "all
 /* DATA */
 let tools = [
   { id: 1, name: "ChatGPT", type: "writing", rating: 5, trending: true },
