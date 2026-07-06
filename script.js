@@ -1,77 +1,59 @@
-let theme = "dark";
+let category = "all";
 
-/* DATABASE (IMPORTANT UPGRADE) */
 const tools = [
-  {
-    id: 1,
-    name: "ChatGPT",
-    type: "Writing AI",
-    desc: "Powerful AI assistant for writing and coding.",
-    link: "https://chat.openai.com"
-  },
-  {
-    id: 2,
-    name: "Midjourney",
-    type: "Image AI",
-    desc: "Generate high quality AI images.",
-    link: "https://www.midjourney.com"
-  },
-  {
-    id: 3,
-    name: "Pika Labs",
-    type: "Video AI",
-    desc: "Create AI videos easily.",
-    link: "https://pika.art"
-  }
+{ id:1,name:"ChatGPT",type:"writing",desc:"AI assistant",link:"https://chat.openai.com"},
+{ id:2,name:"Midjourney",type:"image",desc:"AI images",link:"https://midjourney.com"},
+{ id:3,name:"Pika",type:"video",desc:"AI video",link:"https://pika.art"}
 ];
 
 /* THEME */
-function toggleTheme() {
-  if (theme === "dark") {
-    theme = "light";
-    document.body.className = "light";
-  } else {
-    theme = "dark";
-    document.body.className = "dark";
-  }
+function toggleTheme(){
+document.body.classList.toggle("light");
+document.body.classList.toggle("dark");
 }
 
-/* RENDER TOOLS */
-function renderTools() {
-  const box = document.getElementById("toolsContainer");
-  const search = document.getElementById("searchBox").value?.toLowerCase() || "";
+/* CATEGORY */
+function changeCategory(v){
+category = v;
+render();
+}
 
-  box.innerHTML = "";
+/* RENDER */
+function render(){
+let box = document.getElementById("grid");
+let search = document.getElementById("search").value.toLowerCase();
 
-  tools
-    .filter(t =>
-      t.name.toLowerCase().includes(search) ||
-      t.type.toLowerCase().includes(search)
-    )
-    .forEach(t => {
-      box.innerHTML += `
-        <div class="card" onclick="openTool(${t.id})">
-          <h3>${t.name}</h3>
-          <p>${t.type}</p>
-        </div>
-      `;
-    });
+box.innerHTML="";
+
+tools
+.filter(t=>{
+let okCat = category==="all" || t.type===category;
+let okSearch = t.name.toLowerCase().includes(search);
+return okCat && okSearch;
+})
+.forEach(t=>{
+box.innerHTML += `
+<div class="card" onclick="openTool(${t.id})">
+<h3>${t.name}</h3>
+<p>${t.type}</p>
+</div>`;
+});
 }
 
 /* TOOL PAGE */
-function openTool(id) {
-  const tool = tools.find(t => t.id === id);
+function openTool(id){
+let t = tools.find(x=>x.id===id);
 
-  document.getElementById("toolName").innerText = tool.name;
-  document.getElementById("toolDesc").innerText = tool.desc;
-  document.getElementById("toolLink").href = tool.link;
+document.getElementById("pName").innerText = t.name;
+document.getElementById("pDesc").innerText = t.desc;
+document.getElementById("pLink").href = t.link;
 
-  document.getElementById("toolPage").style.display = "block";
+document.getElementById("page").style.display="block";
 }
 
-function closeTool() {
-  document.getElementById("toolPage").style.display = "none";
+function closePage(){
+document.getElementById("page").style.display="none";
 }
 
 /* INIT */
-renderTools();
+render();
