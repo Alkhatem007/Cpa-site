@@ -1,36 +1,34 @@
 let lang = "en";
 const OFFER_URL = "https://unlockplay.online/cl/i/4ordr1";
 
+/* نصوص الواجهة والترجمة للغتين */
 const t = {
   en: {
-    title: "AI Store", subtitle: "Find the best AI tools in one place", search: "Search AI tools...", login: "Login / Sign Up", logout: "Logout", welcome: "Welcome", modalTitle: "Account Access", modalText: "Create your account to unlock AI tools experience.", btnFacebook: "Continue with Facebook", dividerText: "Or use standard access", rememberLabel: "Remember me on this device", continue: "Continue", cancel: "Cancel"
+    heroTitle: "The Next-Gen AI Operations Platform", heroSubtitle: "Connect your identity to deploy, monitor, and scale advanced models globally.", heroCta: "Get Started Free", login: "Login", logout: "Logout", menuOverview: "📊 Overview", menuTools: "🤖 AI Models", menuAnalytics: "📈 Live Analytics", menuApi: "🔑 API Credentials", dashWelcome: "Welcome back, Developer", statTokens: "Tokens Consumed", statCost: "Total Spending", statStatus: "System Gateway", toolsTitle: "Enterprise AI Clusters", analyticsTitle: "Real-Time Request Streams", lockAnalyticsTitle: "Advanced Graph Metrics Locked", lockAnalyticsText: "To access full real-time user stream maps and data filtering, please unlock your dashboard token.", unlockBtn1: "Unlock Analytics Now", apiTitle: "Production Access Tokens", lockApiTitle: "Generate Production API Key", lockApiText: "Deploy your code to live apps. Requires a brief developer authentication verification.", unlockBtn2: "Verify & Generate Key", modalTitle: "Secure Cloud Gateway", modalText: "Select your authorization layer to access the dashboard terminal.", btnFacebook: "Sign in with Facebook", dividerText: "Or Developer Credentials", btnGuest: "Guest Access", btnCancel: "Cancel"
   },
   ar: {
-    title: "متجر الذكاء الاصطناعي", subtitle: "أفضل أدوات الذكاء الاصطناعي في مكان واحد", search: "ابحث عن أدوات...", login: "تسجيل / دخول", logout: "خروج", welcome: "مرحباً بك", modalTitle: "الدخول للحساب", modalText: "أنشئ حسابك لتجربة أدوات الذكاء الاصطناعي كاملة.", btnFacebook: "المتابعة باستخدام فيسبوك", dividerText: "أو الدخول العادي", rememberLabel: "تذكر حسابي على هذا الجهاز", continue: "متابعة", cancel: "إلغاء"
+    heroTitle: "منصة عمليات الذكاء الاصطناعي للمستقبل", heroSubtitle: "اربط هويتك الرقمية لتشغيل ومراقبة وتوسيع النماذج البرمجية عالمياً.", heroCta: "ابدأ مجاناً الآن", login: "تسجيل دخول", logout: "تسجيل خروج", menuOverview: "📊 نظرة عامة", menuTools: "🤖 نماذج الذكاء", menuAnalytics: "📈 التحليلات المباشرة", menuApi: "🔑 مفاتيح الـ API", dashWelcome: "مرحباً بك مجدداً، مطور البرمجيات", statTokens: "الرموز المستهلكة (Tokens)", statCost: "إجمالي الإنفاق الكلي", statStatus: "بوابة النظام", toolsTitle: "مجموعات الذكاء الاصطناعي للمؤسسات", analyticsTitle: "تدفق البيانات الفوري", lockAnalyticsTitle: "الرسوم البيانية المتقدمة مقفلة", lockAnalyticsText: "للوصول إلى خرائط تدفق المستخدمين في الوقت الفعلي وتصفية البيانات، يرجى فك قفل لوحة التحكم.", unlockBtn1: "افتح التحليلات الآن", apiTitle: "رموز وصول الإنتاج الفعلي", lockApiTitle: "توليد مفتاح API للإنتاج", lockApiText: "انشر تطبيقاتك على الخوادم الحية. يتطلب هذا الإجراء توثيقاً سريعاً لملف المطور.", unlockBtn2: "توثيق وتوليد المفتاح", modalTitle: "بوابة الحماية السحابية الآمنة", modalText: "اختر طبقة المصادقة المناسبة للدخول إلى واجهة لوحة التحكم.", btnFacebook: "المتابعة باستخدام فيسبوك", dividerText: "أو صلاحيات مطور فرعية", btnGuest: "دخول كـ زائر", btnCancel: "إلغاء"
   }
 };
 
+/* نماذج الذكاء الاصطناعي المعروضة جوة صفحة الـ Models */
 const tools = [
-  { name: "ChatGPT", desc: { en: "AI writing and conversational tool", ar: "أداة ذكية للكتابة والمحادثة وتحليل النصوص" } },
-  { name: "Midjourney", desc: { en: "Advanced AI image generation tool", ar: "أداة متطورة لتوليد الصور من النصوص" } },
-  { name: "Pika", desc: { en: "AI-powered video creation platform", ar: "منصة ممتازة لصناعة وتوليد الفيديو بالذكاء الاصطناعي" } }
+  { name: "LLaMA 3.1-Ultra", desc: { en: "High-throughput fine-tuned text agent.", ar: "نموذج معالج نصوص فائق السرعة مخصص للمؤسسات." } },
+  { name: "Stable Diffusion XL", desc: { en: "Latent text-to-image synthesis cluster.", ar: "عنقود توليد ومعالجة الصور المتقدمة من النصوص." } },
+  { name: "Whisper Pro-V3", desc: { en: "Neural audio transcription and speech model.", ar: "النموذج العصبي المتطور لنسخ وتحليل الملفات الصوتية." } }
 ];
 
+/* تبديل اللغات وتطبيق الاتجاهات */
 function changeLanguage() {
   const selectElement = document.getElementById("langSelect");
   lang = selectElement ? selectElement.value : "en";
   const cur = t[lang] || t["en"];
 
-  document.getElementById("title").innerText = cur.title;
-  document.getElementById("subtitle").innerText = cur.subtitle;
-  document.getElementById("searchBox").placeholder = cur.search;
-  document.getElementById("modalTitle").innerText = cur.modalTitle;
-  document.getElementById("modalText").innerText = cur.modalText;
-  document.getElementById("btnFacebook").innerText = cur.btnFacebook;
-  document.getElementById("dividerText").innerText = cur.dividerText;
-  document.getElementById("rememberLabel").innerText = cur.rememberLabel;
-  document.querySelector(".yes").innerText = cur.continue;
-  document.querySelector(".no").innerText = cur.cancel;
+  // تحديث نصوص الهبوط واللوحة
+  for (let key in cur) {
+    const el = document.getElementById(key);
+    if (el) el.innerText = cur[key];
+  }
 
   if (lang === "ar") {
     document.documentElement.dir = "rtl";
@@ -39,86 +37,110 @@ function changeLanguage() {
     document.documentElement.dir = "ltr";
     document.documentElement.lang = lang;
   }
-  updateAuthButtonUI();
-  loadTools(document.getElementById("searchBox").value);
+  
+  updateAuthUI();
+  loadTools();
 }
 
-function updateAuthButtonUI() {
-  const authBtn = document.querySelector(".auth-btn");
-  const authText = document.getElementById("authText");
-  const isLogged = localStorage.getItem("ai_store_logged");
-  const userProvider = localStorage.getItem("ai_store_provider") || "User";
-  const cur = t[lang] || t["en"];
-
-  if (isLogged === "true") {
-    authText.innerText = `${cur.welcome}, ${userProvider} ✓`;
-    authBtn.style.background = "#10b981"; 
-    authBtn.onclick = handleLogout;
+/* تبديل الثيم: ليلي / نهاري */
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById("themeToggle");
+  if (html.getAttribute("data-theme") === "dark") {
+    html.setAttribute("data-theme", "light");
+    btn.innerText = "☀️";
+    localStorage.setItem("ai_theme", "light");
   } else {
-    authText.innerText = cur.login;
-    authBtn.style.background = "#2563eb"; 
-    authBtn.onclick = openAuth;
+    html.setAttribute("data-theme", "dark");
+    btn.innerText = "🌙";
+    localStorage.setItem("ai_theme", "dark");
   }
 }
 
-function handleLogout() {
-  localStorage.removeItem("ai_store_logged");
-  localStorage.removeItem("ai_store_provider");
-  updateAuthButtonUI();
+/* فحص حالة تسجيل الدخول وتغيير الشاشات فوراً */
+function updateAuthUI() {
+  const isLogged = localStorage.getItem("ai_store_logged") === "true";
+  const authText = document.getElementById("authText");
+  const landing = document.getElementById("landingPage");
+  const dashboard = document.getElementById("dashboardPage");
+  const cur = t[lang] || t["en"];
+
+  if (isLogged) {
+    authText.innerText = cur.logout;
+    landing.style.display = "none";
+    dashboard.style.display = "block";
+  } else {
+    authText.innerText = cur.login;
+    landing.style.display = "block";
+    dashboard.style.display = "none";
+  }
 }
 
-/* 🌟 الدالة الحقيقية والرسمية من جوجل عند اختيار إيميل الجهاز الفعلي 🌟 */
+function handleAuthAction() {
+  if (localStorage.getItem("ai_store_logged") === "true") {
+    localStorage.removeItem("ai_store_logged");
+    updateAuthUI();
+  } else {
+    openAuth();
+  }
+}
+
+/* 🌟 استقبال رد جوجل الحقيقي ودخول الموقع مباشرة بدون مغادرة 🌟 */
 function handleCredentialResponse(response) {
   localStorage.setItem("ai_store_logged", "true");
-  localStorage.setItem("ai_store_provider", "Google");
-  
-  updateAuthButtonUI();
   closeAuth();
-
-  // التحويل التلقائي والفوري للرابط بجد وبدون أي رسائل منبثقة مزعجة!
-  window.location.href = OFFER_URL;
+  updateAuthUI(); // حيفتح الـ Dashboard الفخم للمستخدم فوراً في نفس الصفحة!
 }
 
 function socialLogin(provider) {
   localStorage.setItem("ai_store_logged", "true");
-  localStorage.setItem("ai_store_provider", provider);
   closeAuth();
-  updateAuthButtonUI();
+  updateAuthUI();
+}
+function fakeSignup() { socialLogin("Guest"); }
+
+/* التنقل بين الصفحات الداخلية للـ Dashboard */
+function switchTab(element, tabId) {
+  document.querySelectorAll(".nav-menu li").forEach(li => li.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
   
-  window.location.href = OFFER_URL;
+  element.classList.add("active");
+  document.getElementById(tabId).style.display = "block";
 }
 
-function fakeSignup() {
-  socialLogin("User");
-}
-
-function loadTools(filterText = "") {
-  const box = document.getElementById("toolsContainer");
-  if (!box) return;
-  box.innerHTML = "";
-  const query = filterText.toLowerCase().trim();
+/* بناء كروت نماذج الـ AI */
+function loadTools() {
+  const container = document.getElementById("toolsContainer");
+  if (!container) return;
+  container.innerHTML = "";
 
   tools.forEach(tl => {
-    const description = tl.desc[lang] || tl.desc["en"];
-    if (tl.name.toLowerCase().includes(query) || description.toLowerCase().includes(query)) {
-      box.innerHTML += `
-        <div class="card" onclick="openAuth()">
-          <h3>${tl.name}</h3>
-          <p>${description}</p>
-        </div>
-      `;
-    }
+    const desc = tl.desc[lang] || tl.desc["en"];
+    container.innerHTML += `
+      <div class="card">
+        <h3>${tl.name}</h3>
+        <p>${desc}</p>
+        <button class="run-btn" onclick="triggerCpa()">${lang === 'ar' ? 'تشغيل النموذج ⚡' : 'Deploy Model ⚡'}</button>
+      </div>
+    `;
   });
 }
 
+/* 🔥 دالة التوجيه الذكي لعرض الـ CPA عند الرغبة في الفتح والميزات الفخمة 🔥 */
+function triggerCpa() {
+  window.location.href = OFFER_URL;
+}
+
+/* تهيئة الإعدادات عند تحميل الصفحة */
 document.addEventListener("DOMContentLoaded", () => {
-  const searchBox = document.getElementById("searchBox");
-  if (searchBox) {
-    searchBox.addEventListener("input", (e) => loadTools(e.target.value));
+  const savedTheme = localStorage.getItem("ai_theme");
+  if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    document.getElementById("themeToggle").innerText = savedTheme === "light" ? "☀️" : "🌙";
   }
   changeLanguage();
 });
 
 function openAuth() { document.getElementById("authModal").style.display = "flex"; }
 function closeAuth() { document.getElementById("authModal").style.display = "none"; }
-window.onclick = function(e) { if (e.target.id === "authModal") { closeAuth(); } };
+window.onclick = function(e) { if (e.target.id === "authModal") closeAuth(); };
