@@ -1,40 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Store</title>
+  <title>AI Cloud Console</title>
   <link rel="stylesheet" href="style.css">
-  
+  <!-- مكتبة جوجل الرسمية للحسابات الحقيقية -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<div class="top-bar">
-  <select id="langSelect" onchange="changeLanguage()">
-    <option value="en">English</option>
-    <option value="ar">العربية</option>
-  </select>
-  <button class="auth-btn">
-    <span id="authText">Login / Sign Up</span>
-  </button>
+<!-- TOP NAVIGATION BAR -->
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="logo-text">AI<span>Console</span></div>
+  </div>
+  
+  <div class="nav-right">
+    <!-- زر تبديل الوضع الليلي / النهاري -->
+    <button id="themeToggle" class="icon-btn" onclick="toggleTheme()" title="Toggle Theme">
+      🌙
+    </button>
+
+    <!-- قائمة اللغات -->
+    <select id="langSelect" onchange="changeLanguage()">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
+
+    <!-- زر الحساب -->
+    <button class="auth-btn" onclick="handleAuthAction()">
+      <span id="authText">Login</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ================= 🏛️ 1. LANDING PAGE VIEW (قبل تسجيل الدخول) ================= -->
+<div id="landingPage" class="view-section">
+  <section class="hero">
+    <h1 id="heroTitle">The Next-Gen AI Operations Platform</h1>
+    <p id="heroSubtitle">Connect your identity to deploy, monitor, and scale advanced models globally.</p>
+    <button class="cta-btn" onclick="openAuth()" id="heroCta">Get Started Free</button>
+  </section>
 </div>
 
-<header class="header">
-  <h1 id="title">AI Store</h1>
-  <p id="subtitle">Find the best AI tools in one place</p>
-  <input type="text" id="searchBox" placeholder="Search AI tools..." />
-</header>
+<!-- ================= 📊 2. DASHBOARD VIEW (بعد تسجيل الدخول مباشرة) ================= -->
+<div id="dashboardPage" class="view-section" style="display: none;">
+  <div class="dashboard-container">
+    
+    <!-- القائمة الجانبية للوحة التحكم -->
+    <aside class="sidebar">
+      <ul class="nav-menu">
+        <li class="active" onclick="switchTab(this, 'overviewTab')" id="menuOverview">📊 Overview</li>
+        <li onclick="switchTab(this, 'toolsTab')" id="menuTools">🤖 AI Models</li>
+        <li onclick="switchTab(this, 'analyticsTab')" id="menuAnalytics">📈 Live Analytics</li>
+        <li onclick="switchTab(this, 'apiTab')" id="menuApi">🔑 API Credentials</li>
+      </ul>
+    </aside>
 
-<div id="toolsContainer" class="grid"></div>
+    <!-- المحتوى المتغير للوحة التحكم -->
+    <main class="main-content">
+      
+      <!-- TAB 1: OVERVIEW -->
+      <div id="overviewTab" class="tab-content active">
+        <h2 id="dashWelcome">Welcome back, Developer</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-title" id="statTokens">Tokens Consumed</span>
+            <span class="stat-value">1,248,392</span>
+            <span class="stat-desc green">↑ 12.4% this week</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title" id="statCost">Total Spending</span>
+            <span class="stat-value">$142.82</span>
+            <span class="stat-desc">Remaining Credit: $5.18</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title" id="statStatus">System Gateway</span>
+            <span class="stat-value text-green">Operational</span>
+            <span class="stat-desc">Latency: 42ms</span>
+          </div>
+        </div>
 
+        <div class="console-box">
+          <div class="console-header">
+            <span>Terminal Live Logs</span>
+            <span class="dot green"></span>
+          </div>
+          <div class="console-body">
+            <p>[INFO] 2026-07-06: Initializing cluster-ai-west...</p>
+            <p>[SUCCESS] Connection established with internal database.</p>
+            <p>[WARNING] High memory usage detected on node-04. Optimize requested.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: TOOLS -->
+      <div id="toolsTab" class="tab-content" style="display: none;">
+        <h2 id="toolsTitle">Enterprise AI Clusters</h2>
+        <div class="grid" id="toolsContainer"></div>
+      </div>
+
+      <!-- TAB 3: ANALYTICS -->
+      <div id="analyticsTab" class="tab-content" style="display: none;">
+        <h2 id="analyticsTitle">Real-Time Request Streams</h2>
+        <div class="locked-feature">
+          <div class="lock-icon">🔒</div>
+          <h3 id="lockAnalyticsTitle">Advanced Graph Metrics Locked</h3>
+          <p id="lockAnalyticsText">To access full real-time user stream maps and data filtering, please unlock your dashboard token.</p>
+          <button class="unlock-btn" onclick="triggerCpa() "id="unlockBtn1">Unlock Analytics Now</button>
+        </div>
+      </div>
+
+      <!-- TAB 4: API KEYS -->
+      <div id="apiTab" class="tab-content" style="display: none;">
+        <h2 id="apiTitle">Production Access Tokens</h2>
+        <div class="locked-feature">
+          <div class="lock-icon">🔑</div>
+          <h3 id="lockApiTitle">Generate Production API Key</h3>
+          <p id="lockApiText">Deploy your code to live apps. Requires a brief developer authentication verification.</p>
+          <button class="unlock-btn" onclick="triggerCpa()" id="unlockBtn2">Verify & Generate Key</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
 <div id="authModal" class="modal">
   <div class="modal-content">
-    <h2 id="modalTitle">Account Access</h2>
-    <p id="modalText">Create your account to unlock personalized AI tools experience.</p>
+    <h2 id="modalTitle">Secure Cloud Gateway</h2>
+    <p id="modalText">Select your authorization layer to access the dashboard terminal.</p>
 
     <div class="social-container">
-      
+      <!-- زر جوجل الرسمي الحقيقي مدمج فيه معرفك الفعلي -->
       <div id="g_id_onload"
            data-client_id="329919366734-56t0re3vvl8japapmf5gtvch4ctci6ac.apps.googleusercontent.com"
            data-callback="handleCredentialResponse"
@@ -43,31 +143,24 @@
       <div class="g_id_signin" 
            data-type="standard" 
            data-size="large" 
-           data-theme="light" 
-           data-text="continue_with" 
+           data-theme="filled_blue" 
+           data-text="signin_with" 
            data-shape="rectangular" 
            data-logo_alignment="left"
            style="width: 100%;">
       </div>
       
       <button class="social-btn facebook" onclick="socialLogin('Facebook')">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
-        <span id="btnFacebook">Continue with Facebook</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+        <span id="btnFacebook">Sign in with Facebook</span>
       </button>
     </div>
 
-    <div class="divider">
-      <span id="dividerText">Or</span>
-    </div>
-
-    <div class="remember-box">
-      <input type="checkbox" id="rememberMe" checked>
-      <label for="rememberMe" id="rememberLabel">Remember me on this device</label>
-    </div>
+    <div class="divider"><span id="dividerText">Or Developer Credentials</span></div>
 
     <div class="modal-buttons">
-      <button class="yes" onclick="fakeSignup()">Continue</button>
-      <button class="no" onclick="closeAuth()">Cancel</button>
+      <button class="yes" onclick="fakeSignup()" id="btnGuest">Guest Access</button>
+      <button class="no" onclick="closeAuth()" id="btnCancel">Cancel</button>
     </div>
   </div>
 </div>
