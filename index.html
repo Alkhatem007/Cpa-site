@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="top-bar">
 
   <select id="langSelect" onchange="changeLanguage()">
@@ -21,13 +20,12 @@
     <option value="hi">Hindi</option>
   </select>
 
-  <button onclick="openAuth()" class="auth-btn">
+  <button class="auth-btn">
     <span id="authText">Login / Sign Up</span>
   </button>
 
 </div>
 
-<!-- HEADER -->
 <header class="header">
   <h1 id="title">AI Store</h1>
   <p id="subtitle">Find the best AI tools in one place</p>
@@ -35,24 +33,39 @@
   <input type="text" id="searchBox" placeholder="Search AI tools..." />
 </header>
 
-<!-- TOOLS -->
 <div id="toolsContainer" class="grid"></div>
 
-<!-- AUTH MODAL -->
 <div id="authModal" class="modal">
   <div class="modal-content">
 
     <h2 id="modalTitle">Account Access</h2>
+    <p id="modalText">Create your account to unlock personalized AI tools experience.</p>
 
-    <p id="modalText">
-      Create your account to unlock personalized AI tools experience.
-    </p>
+    <div class="social-container">
+      <button class="social-btn google" onclick="socialLogin('Google')">
+        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google">
+        <span id="btnGoogle">Continue with Google</span>
+      </button>
+      
+      <button class="social-btn facebook" onclick="socialLogin('Facebook')">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+        <span id="btnFacebook">Continue with Facebook</span>
+      </button>
+    </div>
+
+    <div class="divider">
+      <span id="dividerText">Or</span>
+    </div>
+
+    <div class="remember-box">
+      <input type="checkbox" id="rememberMe" checked>
+      <label for="rememberMe" id="rememberLabel">Remember me on this device</label>
+    </div>
 
     <div class="modal-buttons">
       <button class="yes" onclick="fakeSignup()">
         Continue
       </button>
-
       <button class="no" onclick="closeAuth()">
         Cancel
       </button>
