@@ -6,57 +6,32 @@
   <title>AI Store</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+<body class="dark">
+
+<div class="bg"></div>
 
 <!-- TOP BAR -->
 <div class="top-bar">
-
-  <select id="langSelect" onchange="changeLanguage()">
-    <option value="en">English</option>
-    <option value="ar">العربية</option>
-    <option value="fr">Français</option>
-    <option value="es">Español</option>
-  </select>
-
-  <button class="auth-btn" onclick="openAuth()">
-    <span id="authText">Login / Sign Up</span>
-  </button>
-
+  <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+  <input id="searchBox" placeholder="Search AI tools..." oninput="renderTools()" />
 </div>
 
 <!-- HEADER -->
 <header class="header">
-  <h1 id="title">AI Store</h1>
-  <p id="subtitle">Find the best AI tools</p>
-
-  <input type="text" id="searchBox" placeholder="Search tools..." oninput="searchTools()" />
+  <h1>AI Store</h1>
+  <p>Discover the best AI tools</p>
 </header>
-
-<!-- FILTERS -->
-<div class="filters">
-  <button onclick="filterCategory('all')">All</button>
-  <button onclick="filterCategory('trending')">🔥 Trending</button>
-  <button onclick="filterCategory('image')">Images</button>
-  <button onclick="filterCategory('video')">Video</button>
-  <button onclick="filterCategory('writing')">Writing</button>
-</div>
 
 <!-- TOOLS -->
 <div id="toolsContainer" class="grid"></div>
 
-<!-- AUTH MODAL -->
-<div id="authModal" class="modal">
-  <div class="modal-content">
-
-    <h2 id="modalTitle">Account</h2>
-    <p id="modalText">Create account to continue</p>
-
-    <div class="modal-buttons">
-      <button class="yes" onclick="fakeLogin()">Continue</button>
-      <button class="no" onclick="closeAuth()">Cancel</button>
-    </div>
-
-  </div>
+<!-- TOOL PAGE -->
+<div id="toolPage" class="tool-page">
+  <button onclick="closeTool()">⬅ Back</button>
+  <h2 id="toolName"></h2>
+  <p id="toolDesc"></p>
+  <a id="toolLink" target="_blank">Open Tool</a>
 </div>
 
 <script src="script.js"></script>
