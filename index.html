@@ -74,6 +74,56 @@
   </div>
 </div>
 
+<div id="googlePickerModal" class="google-modal">
+  <div class="google-box">
+    
+    <div class="google-header">
+      <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google Logo" class="google-logo-main">
+      <h3 id="gModalTitle">Choose an account</h3>
+      <p id="gModalSub">to continue to AI Store</p>
+    </div>
+    
+    <div id="googleLoading" class="google-loading">
+      <div class="g-spinner"></div>
+      <p id="gLoadingText">Connecting to Google services...</p>
+    </div>
+
+    <div id="googleAccountsList" class="google-accounts-list">
+      
+      <div class="google-account-row" onclick="selectGoogleAccount('Google')">
+        <div class="g-avatar">G</div>
+        <div class="g-info">
+          <span class="g-name" id="gName1">Active Google Session</span>
+          <span class="g-email">user.session.01@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="google-account-row" onclick="selectGoogleAccount('Google')">
+        <div class="g-avatar blue">A</div>
+        <div class="g-info">
+          <span class="g-name" id="gName2">Backup Account</span>
+          <span class="g-email">cloud.backup.ai@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="google-account-row use-other" onclick="selectGoogleAccount('Google')">
+        <div class="g-avatar gray">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#5f6368"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </div>
+        <div class="g-info">
+          <span class="g-name" id="gUseOther" style="color: #1a73e8; font-weight: 500;">Use another account</span>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="google-footer">
+      <p id="gFooterText">To continue, Google will share your name, email address, language preference, and profile picture with AI Store.</p>
+    </div>
+
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
