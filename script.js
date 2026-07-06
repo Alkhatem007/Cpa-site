@@ -1,63 +1,20 @@
 let lang = "en";
+let currentFilter = "all";
 
-/* TEXTS */
-const t = {
-  en: {
-    title: "AI Store",
-    subtitle: "Find the best AI tools in one place",
-    search: "Search AI tools...",
-    login: "Login / Sign Up",
-    modalTitle: "Account Access",
-    modalText: "Create your account to unlock AI tools experience.",
-    continue: "Continue",
-    cancel: "Cancel"
-  },
-  ar: {
-    title: "متجر الذكاء الاصطناعي",
-    subtitle: "أفضل أدوات الذكاء الاصطناعي في مكان واحد",
-    search: "ابحث عن أدوات...",
-    login: "تسجيل / دخول",
-    modalTitle: "الدخول للحساب",
-    modalText: "أنشئ حسابك لتجربة أدوات الذكاء الاصطناعي",
-    continue: "متابعة",
-    cancel: "إلغاء"
-  },
-  fr: {
-    title: "AI Store",
-    subtitle: "Meilleurs outils IA",
-    search: "Rechercher...",
-    login: "Connexion",
-    modalTitle: "Accès",
-    modalText: "Créer un compte pour continuer",
-    continue: "Continuer",
-    cancel: "Annuler"
-  },
-  es: {
-    title: "AI Store",
-    subtitle: "Mejores herramientas IA",
-    search: "Buscar...",
-    login: "Entrar",
-    modalTitle: "Acceso",
-    modalText: "Crea tu cuenta para continuar",
-    continue: "Continuar",
-    cancel: "Cancelar"
-  }
-};
+/* DATA */
+let tools = [
+  { id: 1, name: "ChatGPT", type: "writing", rating: 5, trending: true },
+  { id: 2, name: "Midjourney", type: "image", rating: 5, trending: true },
+  { id: 3, name: "Pika", type: "video", rating: 4, trending: true },
+  { id: 4, name: "Notion AI", type: "writing", rating: 4, trending: false }
+];
 
-/* LANGUAGE FIX (FULL PAGE CHANGE) */
+/* FAVORITES (LOCAL STORAGE) */
+let favorites = JSON.parse(localStorage.getItem("fav")) || [];
+
+/* LANGUAGE */
 function changeLanguage() {
   lang = document.getElementById("langSelect").value;
-
-  document.getElementById("title").innerText = t[lang].title;
-  document.getElementById("subtitle").innerText = t[lang].subtitle;
-  document.getElementById("searchBox").placeholder = t[lang].search;
-  document.getElementById("authText").innerText = t[lang].login;
-
-  document.getElementById("modalTitle").innerText = t[lang].modalTitle;
-  document.getElementById("modalText").innerText = t[lang].modalText;
-
-  document.querySelector(".yes").innerText = t[lang].continue;
-  document.querySelector(".no").innerText = t[lang].cancel;
 }
 
 /* AUTH */
@@ -69,41 +26,71 @@ function closeAuth() {
   document.getElementById("authModal").style.display = "none";
 }
 
-/* ❌ NO REDIRECT (as you requested) */
-function fakeSignup() {
+function fakeLogin() {
   closeAuth();
-  alert(lang === "ar" ? "تم إنشاء الحساب بنجاح 🎉" : "Account created successfully 🎉");
+  alert(lang === "ar" ? "تم تسجيل الدخول 🎉" : "Logged in 🎉");
 }
 
-/* CLOSE OUTSIDE CLICK */
-window.onclick = function(e) {
-  if (e.target.id === "authModal") {
-    closeAuth();
+/* FAVORITE */
+function toggleFav(id) {
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(f => f !== id);
+  } else {
+    favorites.push(id);
   }
-};
+  localStorage.setItem("fav", JSON.stringify(favorites));
+  renderTools();
+}
 
-/* SAMPLE DATA */
-const tools = [
-  { name: "ChatGPT", desc: "AI writing tool" },
-  { name: "Midjourney", desc: "AI image tool" },
-  { name: "Pika", desc: "AI video tool" }
-];
+/* FILTER */
+function filterCategory(type) {
+  currentFilter = type;
+  renderTools();
+}
 
-function loadTools() {
+/* SEARCH */
+function searchTools() {
+  renderTools();
+}
+
+/* RENDER */
+function renderTools() {
   const box = document.getElementById("toolsContainer");
+  const search = document.getElementById("searchBox").value.toLowerCase();
+
   box.innerHTML = "";
 
-  tools.forEach(tl => {
+  let filtered = tools.filter(t => {
+    let matchFilter =
+      currentFilter === "all" ||
+      (currentFilter === "trending" && t.trending) ||
+      t.type === currentFilter;
+
+    let matchSearch = t.name.toLowerCase().includes(search);
+
+    return matchFilter && matchSearch;
+  });
+
+  filtered.forEach(t => {
+    let isFav = favorites.includes(t.id);
+
     box.innerHTML += `
       <div class="card">
-        <h3>${tl.name}</h3>
-        <p>${tl.desc}</p>
+        <div class="heart" onclick="toggleFav(${t.id})">
+          ${isFav ? "❤️" : "🤍"}
+        </div>
+
+        <h3>${t.name}</h3>
+
+        <div class="small">${t.type}</div>
+
+        <div class="stars">
+          ${"⭐".repeat(t.rating)}
+        </div>
       </div>
     `;
   });
 }
 
-loadTools();
-
-/* INIT LANGUAGE */
-changeLanguage();
+/* INIT */
+renderTools();
