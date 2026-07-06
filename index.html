@@ -6,28 +6,21 @@
   <title>AI Store</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<!-- BACKGROUND ANIMATION -->
-<div class="bg-animation"></div>
 
 <!-- TOP BAR -->
 <div class="top-bar">
 
-  <!-- LANGUAGE -->
   <select id="langSelect" onchange="changeLanguage()">
-    <option value="en">EN</option>
-    <option value="ar">AR</option>
-    <option value="fr">FR</option>
-    <option value="es">ES</option>
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
   </select>
 
-  <!-- THEME -->
-  <button onclick="toggleTheme()" id="themeBtn">🌙</button>
-
-  <!-- AUTH -->
-  <button class="auth-btn" onclick="openAuth()">Login</button>
+  <button class="auth-btn" onclick="openAuth()">
+    <span id="authText">Login / Sign Up</span>
+  </button>
 
 </div>
 
@@ -36,16 +29,16 @@
   <h1 id="title">AI Store</h1>
   <p id="subtitle">Find the best AI tools</p>
 
-  <input type="text" id="searchBox" placeholder="Search..." oninput="searchTools()" />
+  <input type="text" id="searchBox" placeholder="Search tools..." oninput="searchTools()" />
 </header>
 
-<!-- CATEGORIES -->
-<div class="categories">
+<!-- FILTERS -->
+<div class="filters">
   <button onclick="filterCategory('all')">All</button>
   <button onclick="filterCategory('trending')">🔥 Trending</button>
-  <button onclick="filterCategory('image')">🖼 Image</button>
-  <button onclick="filterCategory('video')">🎬 Video</button>
-  <button onclick="filterCategory('writing')">✍ Writing</button>
+  <button onclick="filterCategory('image')">Images</button>
+  <button onclick="filterCategory('video')">Video</button>
+  <button onclick="filterCategory('writing')">Writing</button>
 </div>
 
 <!-- TOOLS -->
@@ -54,10 +47,15 @@
 <!-- AUTH MODAL -->
 <div id="authModal" class="modal">
   <div class="modal-content">
-    <h2>Login</h2>
-    <p>Demo login (no backend yet)</p>
 
-    <button onclick="closeAuth()">Close</button>
+    <h2 id="modalTitle">Account</h2>
+    <p id="modalText">Create account to continue</p>
+
+    <div class="modal-buttons">
+      <button class="yes" onclick="fakeLogin()">Continue</button>
+      <button class="no" onclick="closeAuth()">Cancel</button>
+    </div>
+
   </div>
 </div>
 
